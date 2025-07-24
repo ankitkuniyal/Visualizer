@@ -1,3 +1,41 @@
+// Proportional sizing for circles based on time-value AND proportional volume
+(function() {
+    // Get all circles with data-value
+    const circles = document.querySelectorAll('.circle[data-value]');
+    // Get all values as numbers
+    const values = Array.from(circles).map(c => parseInt(c.getAttribute('data-value'), 10));
+    // Find min and max
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    // Set min/max size in px
+    const minSize = 90;
+    const maxSize = 200;
+    // Set min/max volume
+    const minVolume = 0.15;
+    const maxVolume = 1.0;
+    // For each circle, set --circle-size CSS variable and store proportional volume
+    circles.forEach(circle => {
+        const value = parseInt(circle.getAttribute('data-value'), 10);
+        // Linear interpolation for size
+        let size;
+        if (max === min) {
+            size = (minSize + maxSize) / 2;
+        } else {
+            size = minSize + (value - min) * (maxSize - minSize) / (max - min);
+        }
+        circle.style.setProperty('--circle-size', size + 'px');
+        // Linear interpolation for volume
+        let volume;
+        if (max === min) {
+            volume = (minVolume + maxVolume) / 2;
+        } else {
+            volume = minVolume + (value - min) * (maxVolume - minVolume) / (max - min);
+        }
+        // Store the proportional volume as a data attribute for later use
+        circle.setAttribute('data-volume', volume);
+    });
+})();
+
 // Welcome Animation Logic
 document.addEventListener("DOMContentLoaded", function () {
   const welcomeScreen = document.getElementById("welcome-screen");
@@ -112,17 +150,10 @@ function initMusicCircles() {
         currentAudio.pause();
       }
 
-      // Set volume: highest at morning, lowest at night
-      let volume;
-      if (circle.classList.contains("morning")) {
-        volume = 1.0;
-      } else if (circle.classList.contains("afternoon")) {
-        volume = 0.7;
-      } else if (circle.classList.contains("evening")) {
-        volume = 0.4;
-      } else if (circle.classList.contains("night")) {
-        volume = 0.15;
-      } else {
+      // Set volume proportional to data-value
+      let volume = parseFloat(circle.getAttribute("data-volume"));
+      if (isNaN(volume)) {
+        // fallback if not set
         volume = 0.5;
       }
 
