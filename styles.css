@@ -1,0 +1,256 @@
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    color: #fff;
+    padding: 0 8px;
+}
+/* Welcome Animation Styles */
+#welcome-screen {
+    position: fixed;
+    z-index: 1000;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.7s cubic-bezier(.4,0,.2,1);
+}
+#welcome-screen.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+.welcome-animation {
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.music-notes {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+.note {
+    width: 32px;
+    height: 32px;
+    opacity: 0.7;
+    animation: bounce 1.2s infinite;
+}
+.note:nth-child(2) { animation-delay: 0.2s; }
+.note:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bounce {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.7; }
+    30% { transform: translateY(-18px) scale(1.15); opacity: 1; }
+    60% { transform: translateY(0) scale(1); opacity: 0.7; }
+}
+.welcome-title {
+    font-size: 2.2rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+.welcome-desc {
+    font-size: 1.15rem;
+    text-align: center;
+    margin-bottom: 28px;
+    color: #e0e0e0;
+    line-height: 1.5;
+}
+.welcome-btn {
+    background: linear-gradient(90deg, #e63946 0%, #0096c7 100%);
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    padding: 14px 38px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18);
+    transition: background 0.2s, background-image 0.2s, transform 0.15s;
+}
+.welcome-btn:hover {
+    background: linear-gradient(90deg, #0096c7 0%, #e63946 100%);
+    transform: scale(1.04);
+}
+/* Hide main content initially */
+#main-content {
+    display: none;
+}
+/* Rest of your original styles below... */
+.header {
+    text-align: center;
+    margin-bottom: 32px;
+    font-size: 2.1rem;
+    font-weight: 500;
+    line-height: 1.25;
+    color: #fff;
+    margin-top: 32px;
+    letter-spacing: 0.5px;
+    transition: opacity 0.35s cubic-bezier(.4,0,.2,1);
+}
+.header.animating {
+    opacity: 0;
+}
+.circle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 24px;
+    width: 100%;
+    max-width: 400px;
+}
+.circle-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.circle {
+    position: relative;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    padding: 6px;
+    transition: 
+        transform 0.2s cubic-bezier(.4,0,.2,1),
+        background-color 0.2s cubic-bezier(.4,0,.2,1),
+        box-shadow 0.3s cubic-bezier(.4,0,.2,1);
+    overflow: hidden;
+    margin-bottom: 4px;
+    box-shadow: 0 0 0 0 rgba(0,0,0,0);
+}
+.circle.hover-animate {
+    box-shadow: 0 8px 24px 0 rgba(0,0,0,0.18);
+    transform: scale(1.09) rotate(-2deg);
+}
+.circle:hover {
+    transform: scale(1.05);
+}
+.circle.morning:hover { background-color: #d94c4c; }
+.circle.afternoon:hover { background-color: #249ecb; }
+.circle.evening:hover { background-color: #6d3991; }
+.circle.night:hover { background-color: #223042; }
+.morning {
+    width: 110px;
+    height: 110px;
+    background-color: #ff6b6b;
+    font-size: 1.6rem;
+}
+.afternoon {
+    width: 90px;
+    height: 90px;
+    background-color: #48dbfb;
+    font-size: 1.3rem;
+}
+.evening {
+    width: 72px;
+    height: 72px;
+    background-color: #9b59b6;
+    font-size: 1.1rem;
+}
+.night {
+    width: 54px;
+    height: 54px;
+    background-color: #34495e;
+    font-size: 0.95rem;
+}
+.time-label {
+    text-align: center;
+    font-weight: 500;
+    color: #fff;
+    font-size: 1rem;
+    width: 100px;
+    transition: transform 0.2s cubic-bezier(.4,0,.2,1), opacity 0.3s cubic-bezier(.4,0,.2,1);
+    margin: 6px 0 0 0;
+}
+.time-label.animating {
+    opacity: 0;
+}
+.circle:hover + .time-label {
+    transform: scale(1.12);
+}
+.wave {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(.4,0,.2,1);
+    left: 0;
+    top: 0;
+    pointer-events: none;
+}
+.circle:hover .wave {
+    opacity: 0.9;
+}
+.time-value {
+    position: relative;
+    z-index: 2;
+    transition: opacity 0.2s cubic-bezier(.4,0,.2,1), transform 0.3s cubic-bezier(.4,0,.2,1);
+}
+.time-value.animating {
+    transform: scale(1.15) rotate(2deg);
+}
+.circle:hover .time-value {
+    opacity: 0;
+}
+.min-label {
+    font-size: 0.5em;
+    margin-left: 4px;
+    opacity: 0.8;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    vertical-align: 1px;
+}
+@media (min-width: 600px) {
+    .header {
+        font-size: 2.2rem;
+        margin-bottom: 44px;
+    }
+    .circle-container {
+        max-width: 600px;
+        gap: 32px;
+    }
+    .morning { width: 150px; height: 150px; font-size: 2.2rem; }
+    .afternoon { width: 120px; height: 120px; font-size: 1.8rem; }
+    .evening { width: 100px; height: 100px; font-size: 1.5rem; }
+    .night { width: 75px; height: 75px; font-size: 1.2rem; }
+    .time-label { font-size: 1.2rem; width: 110px; }
+}
+@media (min-width: 900px) {
+    body {
+        justify-content: center;
+    }
+    .header {
+        font-size: 2.5rem;
+        margin-bottom: 60px;
+    }
+    .circle-container {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        max-width: none;
+    }
+    .circle-group {
+        width: auto;
+    }
+    .morning { width: 200px; height: 200px; font-size: 2.6rem; }
+    .afternoon { width: 160px; height: 160px; font-size: 2.2rem; }
+    .evening { width: 130px; height: 130px; font-size: 1.8rem; }
+    .night { width: 100px; height: 100px; font-size: 1.5rem; }
+    .time-label { font-size: 1.5rem; width: 120px; }
+}

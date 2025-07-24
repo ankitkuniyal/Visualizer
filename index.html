@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Time Circles</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Welcome Animation Screen -->
+    <div id="welcome-screen">
+        <div class="welcome-animation">
+            <div class="music-notes">
+                <svg class="note" viewBox="0 0 32 32">
+                    <ellipse cx="10" cy="24" rx="6" ry="4" fill="#ff6b6b"/>
+                    <rect x="13" y="6" width="3" height="18" rx="1.5" fill="#ff6b6b"/>
+                </svg>
+                <svg class="note" viewBox="0 0 32 32">
+                    <ellipse cx="16" cy="22" rx="5" ry="3.5" fill="#48dbfb"/>
+                    <rect x="18" y="4" width="2.5" height="18" rx="1.2" fill="#48dbfb"/>
+                </svg>
+                <svg class="note" viewBox="0 0 32 32">
+                    <ellipse cx="22" cy="26" rx="4.5" ry="3" fill="#9b59b6"/>
+                    <rect x="24" y="10" width="2" height="14" rx="1" fill="#9b59b6"/>
+                </svg>
+            </div>
+            <div class="welcome-title">Welcome to Music Time Circles</div>
+            <div class="welcome-desc">
+                Visualize your music listening habits across the day.<br>
+                Ready to see your musical journey?
+            </div>
+            <button class="welcome-btn" id="start-btn">Visualise</button>
+        </div>
+    </div>
+    <!-- Main Content (hidden initially) -->
+    <div id="main-content">
+        <div class="header" id="main-header">
+            Hello !! 👋🏻<br>
+            Discover insights from your music listening habits.
+        </div>
+        <div class="circle-container">
+            <div class="circle-group">
+                <div class="circle morning" data-audio="morning.mp3" data-header="Mornings are when you<br>listened most.">
+                    <div class="time-value">618<span class="min-label">min</span></div>
+                    <svg class="wave" viewBox="0 0 200 200" preserveAspectRatio="none">
+                        <defs>
+                            <clipPath id="clip-morning">
+                                <circle cx="100" cy="100" r="100"/>
+                            </clipPath>
+                        </defs>
+                        <g clip-path="url(#clip-morning)">
+                            <path fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" d="M0,100 Q50,50 100,100 T200,100" />
+                        </g>
+                    </svg>
+                </div>
+                <div class="time-label">Morning</div>
+            </div>
+            <div class="circle-group">
+                <div class="circle afternoon" data-audio="afternoon.mp3" data-header="Afternoons brought<br>steady rhythms.">
+                    <div class="time-value">509<span class="min-label">min</span></div>
+                    <svg class="wave" viewBox="0 0 160 160" preserveAspectRatio="none">
+                        <defs>
+                            <clipPath id="clip-afternoon">
+                                <circle cx="80" cy="80" r="80"/>
+                            </clipPath>
+                        </defs>
+                        <g clip-path="url(#clip-afternoon)">
+                            <path fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" d="M0,80 Q40,40 80,80 T160,80" />
+                        </g>
+                    </svg>
+                </div>
+                <div class="time-label">Afternoon</div>
+            </div>
+            <div class="circle-group">
+                <div class="circle evening" data-audio="evening.mp3" data-header="Evenings were for<br>unwinding.">
+                    <div class="time-value">251<span class="min-label">min</span></div>
+                    <svg class="wave" viewBox="0 0 130 130" preserveAspectRatio="none">
+                        <defs>
+                            <clipPath id="clip-evening">
+                                <circle cx="65" cy="65" r="65"/>
+                            </clipPath>
+                        </defs>
+                        <g clip-path="url(#clip-evening)">
+                            <path fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" d="M0,65 Q32.5,32.5 65,65 T130,65" />
+                        </g>
+                    </svg>
+                </div>
+                <div class="time-label">Evening</div>
+            </div>
+            <div class="circle-group">
+                <div class="circle night" data-audio="night.mp3" data-header="Nights had their<br>own vibe.">
+                    <div class="time-value">366<span class="min-label">min</span></div>
+                    <svg class="wave" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <defs>
+                            <clipPath id="clip-night">
+                                <circle cx="50" cy="50" r="50"/>
+                            </clipPath>
+                        </defs>
+                        <g clip-path="url(#clip-night)">
+                            <path fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" d="M0,50 Q25,25 50,50 T100,50" />
+                        </g>
+                    </svg>
+                </div>
+                <div class="time-label">Night</div>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
