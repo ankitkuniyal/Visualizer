@@ -110,7 +110,7 @@ function initMusicCircles() {
   let animationFrameIds = [];
   const header = document.getElementById("main-header");
   const defaultHeader =
-    "Hello !! 👋🏻<br>Discover insights from your music listening habits";
+    "Hello !! 👋🏻<br>Discover insights from my music listening habits";
   // Volume indicator elements
   const volIndicator = document.getElementById("vol-indicator");
   const volValue = volIndicator.querySelector(".vol-value");

@@ -65,6 +65,31 @@
             color: #9b59b6;
             font-weight: bold;
         }
+        /* Instruction styling */
+        .hover-instruction {
+            text-align: center;
+            margin-bottom: 1.2em;
+            font-size: 1.08em;
+            color: #48dbfb;
+            letter-spacing: 0.01em;
+            font-weight: 500;
+            opacity: 0.92;
+            user-select: none;
+            transition: opacity 0.3s;
+        }
+        .hover-instruction.hide {
+            opacity: 0;
+            pointer-events: none;
+            height: 0;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        @media (max-width: 600px) {
+            .hover-instruction {
+                font-size: 1em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -98,6 +123,10 @@
         <div class="header" id="main-header">
             Hello! 👋🏻<br>
             Here are insights from <strong>my</strong> music listening habits.
+        </div>
+        <!-- Instruction: hover over the circle -->
+        <div class="hover-instruction" id="hover-instruction">
+            Hover over a circle to see more!
         </div>
         <div class="circle-container">
             <div class="circle-group">
@@ -190,6 +219,45 @@
         </div>
     </div>
 
-    <script src="main.js"></script>  
+    <script src="main.js"></script>
+    <script>
+    // Remove the hover instruction when music starts
+    document.addEventListener("DOMContentLoaded", function () {
+        // Wait for main.js to define initMusicCircles
+        function addHideInstructionLogic() {
+            // Wait for the circles to exist
+            var circles = document.querySelectorAll('.circle');
+            var hoverInstruction = document.getElementById('hover-instruction');
+            if (!hoverInstruction || circles.length === 0) return;
+
+            // Only add the handler once
+            let removed = false;
+            function hideInstruction() {
+                if (!removed) {
+                    hoverInstruction.classList.add('hide');
+                    removed = true;
+                }
+            }
+            // Listen for the first time any circle starts music
+            circles.forEach(function(circle) {
+                circle.addEventListener('mouseenter', function handler() {
+                    // If main.js is handling music on hover, we want to hide on first hover
+                    // But only if music actually starts (simulate by checking if not already hidden)
+                    if (!removed) {
+                        hideInstruction();
+                    }
+                });
+                // If main.js uses click, also listen for click
+                circle.addEventListener('click', function handler() {
+                    if (!removed) {
+                        hideInstruction();
+                    }
+                });
+            });
+        }
+        // Run after a short delay to ensure main.js has run
+        setTimeout(addHideInstructionLogic, 400);
+    });
+    </script>
 </body>
 </html>
