@@ -1,11 +1,30 @@
+
+
+// Store time values in a JS object for dynamic use
+const timeValues = {
+  morning: 681,
+  afternoon: 509,
+  evening: 251,
+  night: 366,
+};
+
 // Proportional sizing for circles based on time-value AND proportional volume
 (function () {
   // Get all circles with data-value
   const circles = document.querySelectorAll(".circle[data-value]");
-  // Get all values as numbers
-  const values = Array.from(circles).map((c) =>
-    parseInt(c.getAttribute("data-value"), 10)
-  );
+  // Get all values as numbers from the JS object
+  const values = Array.from(circles).map((c) => {
+    const key = c.classList.contains("morning")
+      ? "morning"
+      : c.classList.contains("afternoon")
+      ? "afternoon"
+      : c.classList.contains("evening")
+      ? "evening"
+      : c.classList.contains("night")
+      ? "night"
+      : null;
+    return timeValues[key];
+  });
   // Find min and max
   const min = Math.min(...values);
   const max = Math.max(...values);
@@ -17,7 +36,17 @@
   const maxVolume = 1.0;
   // For each circle, set --circle-size CSS variable and store proportional volume
   circles.forEach((circle) => {
-    const value = parseInt(circle.getAttribute("data-value"), 10);
+    // Determine key for this circle
+    const key = circle.classList.contains("morning")
+      ? "morning"
+      : circle.classList.contains("afternoon")
+      ? "afternoon"
+      : circle.classList.contains("evening")
+      ? "evening"
+      : circle.classList.contains("night")
+      ? "night"
+      : null;
+    const value = timeValues[key];
     // Linear interpolation for size
     let size;
     if (max === min) {
@@ -36,6 +65,12 @@
     }
     // Store the proportional volume as a data attribute for later use
     circle.setAttribute("data-volume", volume);
+
+    // Set the time-value text dynamically
+    const timeValueDiv = circle.querySelector(".time-value");
+    if (timeValueDiv) {
+      timeValueDiv.innerHTML = `${value}<span class="min-label">min</span>`;
+    }
   });
 })();
 
