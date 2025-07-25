@@ -3,8 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Time Circles</title>
+    <title>My Music Time Circles</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        #docs-corner {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: rgba(30, 30, 40, 0.92);
+            color: #fff;
+            padding: 1.1em 1.5em 1.1em 1.2em;
+            border-radius: 12px;
+            font-size: 0.98em;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            max-width: 320px;
+            z-index: 1000;
+            line-height: 1.6;
+        }
+        #docs-corner strong {
+            color: #48dbfb;
+        }
+        #docs-corner .docs-title {
+            font-weight: bold;
+            font-size: 1.08em;
+            margin-bottom: 0.3em;
+            display: block;
+        }
+        #docs-corner .docs-close {
+            position: absolute;
+            top: 7px;
+            right: 12px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.1em;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+        #docs-corner .docs-close:hover {
+            opacity: 1;
+        }
+        #authenticity {
+            position: fixed;
+            top: 18px;
+            right: 24px;
+            background: rgba(255,255,255,0.92);
+            color: #222;
+            padding: 0.7em 1.3em 0.7em 1.1em;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 500;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+            z-index: 1100;
+            letter-spacing: 0.01em;
+        }
+        #authenticity .name {
+            color: #3b82f6;
+            font-weight: bold;
+        }
+        #authenticity .reg {
+            color: #9b59b6;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <!-- Welcome Animation Screen -->
@@ -24,10 +85,10 @@
                     <rect x="24" y="10" width="2" height="14" rx="1" fill="#9b59b6"/>
                 </svg>
             </div>
-            <div class="welcome-title">Welcome to Music Time Circles</div>
+            <div class="welcome-title">Welcome to My Music Time Circles</div>
             <div class="welcome-desc">
-                Visualize your music listening habits across the day.<br>
-                Ready to see your musical journey?
+                Visualizing <strong>my</strong> music listening habits across the day.<br>
+                Ready to see <strong>my</strong> musical journey?
             </div>
             <button class="welcome-btn" id="start-btn">Visualise</button>
         </div>
@@ -35,12 +96,12 @@
     <!-- Main Content (hidden initially) -->
     <div id="main-content">
         <div class="header" id="main-header">
-            Hello !! 👋🏻<br>
-            Discover insights from your music listening habits.
+            Hello! 👋🏻<br>
+            Here are insights from <strong>my</strong> music listening habits.
         </div>
         <div class="circle-container">
             <div class="circle-group">
-                <div class="circle morning" data-audio="morning.mp3" data-header="Mornings set the tone<br>for your day." data-value="618" data-size>
+                <div class="circle morning" data-audio="morning.mp3" data-header="My mornings set the tone<br>for my day." data-value="618" data-size>
                     <div class="time-value"></div>
                     <svg class="wave" viewBox="0 0 200 200" preserveAspectRatio="none">
                         <defs>
@@ -56,7 +117,7 @@
                 <div class="time-label">Morning</div>
             </div>
             <div class="circle-group">
-                <div class="circle afternoon" data-audio="afternoon.mp3" data-header="Afternoons brought<br>steady rhythms." data-value="509" data-size>
+                <div class="circle afternoon" data-audio="afternoon.mp3" data-header="My afternoons bring<br>steady rhythms." data-value="509" data-size>
                     <div class="time-value"></div>
                     <svg class="wave" viewBox="0 0 160 160" preserveAspectRatio="none">
                         <defs>
@@ -72,7 +133,7 @@
                 <div class="time-label">Afternoon</div>
             </div>
             <div class="circle-group">
-                <div class="circle evening" data-audio="evening.mp3" data-header="Evenings were for<br>unwinding." data-value="251" data-size>
+                <div class="circle evening" data-audio="evening.mp3" data-header="My evenings are for<br>unwinding." data-value="251" data-size>
                     <div class="time-value"></div>
                     <svg class="wave" viewBox="0 0 130 130" preserveAspectRatio="none">
                         <defs>
@@ -88,7 +149,7 @@
                 <div class="time-label">Evening</div>
             </div>
             <div class="circle-group">
-                <div class="circle night" data-audio="night.mp3" data-header="Nights had their<br>own vibe." data-value="366" data-size>
+                <div class="circle night" data-audio="night.mp3" data-header="My nights have their<br>own vibe." data-value="366" data-size>
                     <div class="time-value"></div>
                     <svg class="wave" viewBox="0 0 100 100" preserveAspectRatio="none">
                         <defs>
@@ -109,6 +170,26 @@
             <span class="vol-value"></span>%
         </div>
     </div>  
+
+    <!-- Docs/Help Box in the corner -->
+    <div id="docs-corner">
+        <button class="docs-close" onclick="document.getElementById('docs-corner').style.display='none';" aria-label="Close">&times;</button>
+        <span class="docs-title">How does this work?</span>
+        <div>
+            Each <strong>circle</strong> shows how much time <strong>I</strong> listened to music during that part of the day.<br>
+            <ul style="margin: 0.5em 0 0 1.1em; padding: 0;">
+                <li>The <strong>radius</strong> of each circle is <strong>proportional</strong> to my listening time for that period.</li>
+                <li>The <strong>volume indicator</strong> (Vol) also reflects my listening time as a percentage of my total daily listening.</li>
+            </ul>
+            <div style="margin-top:0.5em;">
+                The more I listened, the bigger the circle and the higher the volume!
+            </div>
+            <div style="margin-top:0.7em; font-size:0.97em; color:#bbb;">
+                <span style="color:#48dbfb;">Nishtha Jogiya</span> &bull; <span style="color:#9b59b6;">10223186</span>
+            </div>
+        </div>
+    </div>
+
     <script src="main.js"></script>  
 </body>
 </html>
