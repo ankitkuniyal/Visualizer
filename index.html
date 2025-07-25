@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Time Circles</title>
     <link rel="stylesheet" href="styles.css">
-    
 </head>
 <body>
     <!-- Welcome Animation Screen -->
@@ -15,7 +14,7 @@
                 <svg class="note" viewBox="0 0 32 32">
                     <ellipse cx="10" cy="24" rx="6" ry="4" fill="#ff6b6b"/>
                     <rect x="13" y="6" width="3" height="18" rx="1.5" fill="#ff6b6b"/>
-                </svg>
+                </svg> 
                 <svg class="note" viewBox="0 0 32 32">
                     <ellipse cx="16" cy="22" rx="5" ry="3.5" fill="#48dbfb"/>
                     <rect x="18" y="4" width="2.5" height="18" rx="1.2" fill="#48dbfb"/>
@@ -105,8 +104,11 @@
                 <div class="time-label">Night</div>
             </div>
         </div>
-    </div>
-  
-    <script src="main.js"></script>
+        <div id="vol-indicator" aria-live="polite">
+            <span class="vol-label">Vol :</span>
+            <span class="vol-value"></span>%
+        </div>
+    </div>  
+    <script src="main.js"></script>  
 </body>
 </html>

@@ -1,39 +1,42 @@
 // Proportional sizing for circles based on time-value AND proportional volume
-(function() {
-    // Get all circles with data-value
-    const circles = document.querySelectorAll('.circle[data-value]');
-    // Get all values as numbers
-    const values = Array.from(circles).map(c => parseInt(c.getAttribute('data-value'), 10));
-    // Find min and max
-    const min = Math.min(...values);
-    const max = Math.max(...values);
-    // Set min/max size in px
-    const minSize = 90;
-    const maxSize = 200;
-    // Set min/max volume
-    const minVolume = 0.15;
-    const maxVolume = 1.0;
-    // For each circle, set --circle-size CSS variable and store proportional volume
-    circles.forEach(circle => {
-        const value = parseInt(circle.getAttribute('data-value'), 10);
-        // Linear interpolation for size
-        let size;
-        if (max === min) {
-            size = (minSize + maxSize) / 2;
-        } else {
-            size = minSize + (value - min) * (maxSize - minSize) / (max - min);
-        }
-        circle.style.setProperty('--circle-size', size + 'px');
-        // Linear interpolation for volume
-        let volume;
-        if (max === min) {
-            volume = (minVolume + maxVolume) / 2;
-        } else {
-            volume = minVolume + (value - min) * (maxVolume - minVolume) / (max - min);
-        }
-        // Store the proportional volume as a data attribute for later use
-        circle.setAttribute('data-volume', volume);
-    });
+(function () {
+  // Get all circles with data-value
+  const circles = document.querySelectorAll(".circle[data-value]");
+  // Get all values as numbers
+  const values = Array.from(circles).map((c) =>
+    parseInt(c.getAttribute("data-value"), 10)
+  );
+  // Find min and max
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  // Set min/max size in px
+  const minSize = 90;
+  const maxSize = 200;
+  // Set min/max volume
+  const minVolume = 0.15;
+  const maxVolume = 1.0;
+  // For each circle, set --circle-size CSS variable and store proportional volume
+  circles.forEach((circle) => {
+    const value = parseInt(circle.getAttribute("data-value"), 10);
+    // Linear interpolation for size
+    let size;
+    if (max === min) {
+      size = (minSize + maxSize) / 2;
+    } else {
+      size = minSize + ((value - min) * (maxSize - minSize)) / (max - min);
+    }
+    circle.style.setProperty("--circle-size", size + "px");
+    // Linear interpolation for volume
+    let volume;
+    if (max === min) {
+      volume = (minVolume + maxVolume) / 2;
+    } else {
+      volume =
+        minVolume + ((value - min) * (maxVolume - minVolume)) / (max - min);
+    }
+    // Store the proportional volume as a data attribute for later use
+    circle.setAttribute("data-volume", volume);
+  });
 })();
 
 // Welcome Animation Logic
@@ -73,6 +76,9 @@ function initMusicCircles() {
   const header = document.getElementById("main-header");
   const defaultHeader =
     "Hello !! 👋🏻<br>Discover insights from your music listening habits";
+  // Volume indicator elements
+  const volIndicator = document.getElementById("vol-indicator");
+  const volValue = volIndicator.querySelector(".vol-value");
 
   // Animate the sine wave with smooth movement
   function animateWave(svg) {
@@ -139,6 +145,17 @@ function initMusicCircles() {
     }
   }
 
+  // Show volume indicator
+  function showVolIndicator(volume) {
+    // volume is 0.0 - 1.0
+    volValue.textContent = Math.round(volume * 100);
+    volIndicator.classList.add("visible");
+  }
+  // Hide volume indicator
+  function hideVolIndicator() {
+    volIndicator.classList.remove("visible");
+  }
+
   // Handle circle hover
   circles.forEach((circle) => {
     circle.addEventListener("mouseenter", function () {
@@ -184,6 +201,9 @@ function initMusicCircles() {
 
       // Animate time-value and circle
       animateCircleTransition(circle, true);
+
+      // Show volume indicator
+      showVolIndicator(volume);
     });
 
     circle.addEventListener("mouseleave", function () {
@@ -195,6 +215,9 @@ function initMusicCircles() {
       }
       animateHeaderChange(defaultHeader);
       animateCircleTransition(circle, false);
+
+      // Hide volume indicator
+      hideVolIndicator();
     });
   });
 
@@ -203,3 +226,19 @@ function initMusicCircles() {
     animationFrameIds.forEach((id) => cancelAnimationFrame(id));
   });
 }
+document.addEventListener("DOMContentLoaded", function () {
+  const container = document.querySelector(".circle-container");
+  const circles = container.querySelectorAll(".circle");
+
+  circles.forEach((circle) => {
+    circle.addEventListener("mouseenter", function () {
+      container.classList.add("blur-active");
+      circles.forEach((c) => c.classList.remove("hovered"));
+      this.classList.add("hovered");
+    });
+    circle.addEventListener("mouseleave", function () {
+      container.classList.remove("blur-active");
+      this.classList.remove("hovered");
+    });
+  });
+});
